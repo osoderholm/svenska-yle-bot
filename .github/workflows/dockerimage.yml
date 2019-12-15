@@ -1,11 +1,11 @@
 name: Docker registry
 
-on:
-  push:
-    branch:
-      - master
-    tags:
-      - 'v*'
+on: [push]
+  #push:
+  #  branch:
+  #    - master
+  #  tags:
+  #    - 'v*'
 
 jobs:
   github:
