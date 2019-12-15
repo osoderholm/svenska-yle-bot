@@ -22,10 +22,10 @@ jobs:
 
       - name: Build :tag
         if: success()
-        run: docker build -t docker.pkg.github.com/${{ github.repository }}/svenska-yle-bot:${IMAGE_TAG} -t docker.pkg.github.com/${{ github.repository }}/svenska-yle-bot:$(git rev-parse --short "$GITHUB_SHA") .
+        run: docker build -t docker.pkg.github.com/${{ github.repository }}/svenska-yle-bot:${IMAGE_TAG} -t docker.pkg.github.com/${{ github.repository }}/svenska-yle-bot:$(echo ${GITHUB_SHA} | cut -c1-8) .
 
       - name: Push to docker hub :tag
         if: success()
         uses: actions-hub/docker@master
         with:
-          args: push docker.pkg.github.com/${{ github.repository }}/svenska-yle-bot:${IMAGE_TAG} && push docker.pkg.github.com/${{ github.repository }}/svenska-yle-bot:$(git rev-parse --short "$GITHUB_SHA")
+          args: push docker.pkg.github.com/${{ github.repository }}/svenska-yle-bot:${IMAGE_TAG} && push docker.pkg.github.com/${{ github.repository }}/svenska-yle-bot:$(echo ${GITHUB_SHA} | cut -c1-8)
