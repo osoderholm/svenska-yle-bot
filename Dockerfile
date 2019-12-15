@@ -15,7 +15,7 @@ RUN CGO_ENABLED=0 GOOS=linux GARCH=amd64 go build -ldflags="-w -s" -o bot . ; mv
 
 FROM alpine:latest
 
-RUN apk update && apk add --no-cache --update ca-certificates
+RUN apk update && apk add --no-cache --update ca-certificates tzdata
 
 WORKDIR /root
 
