@@ -112,8 +112,12 @@ func (h *handler) handleUnsubscribe(m *tb.Message) {
 // sendArticleWithImage attempts to send an article with an image.
 // If an error is returned, the same article is sent without the image.
 func sendArticleWithImage(b *tb.Bot, to tb.Recipient, article Article) {
-	loc, _ := time.LoadLocation("Europe/Helsinki")
-	p := article.Published.In(loc).Format("02.01.2006 kl. 15:04 (-07)")
+	p := article.Published.Format("02.01.2006 kl. 15:04 (-07)")
+
+	if loc, err := time.LoadLocation("Europe/Helsinki"); err == nil {
+		p = article.Published.In(loc).Format("02.01.2006 kl. 15:04 (-07)")
+	}
+
 	caption := fmt.Sprintf("%s: [%s](%s)", p, article.Title, article.Link)
 	if len(article.Image) > 0 {
 		photo := &tb.Photo{File: tb.FromURL(article.Image), Caption: caption}
