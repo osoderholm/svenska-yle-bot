@@ -23,5 +23,5 @@ services:
       DB_USER: bot
       DB_PASSWORD: verysecretpassword
       TG_API_TOKEN: "telegram:api-token"
-      CHANNEL_SUBSCRIBERS: "@svenskayletest"
+      CHANNEL_SUBSCRIBERS: "" # Comma separated list, no spaces: "@channel_1,@channel_2"
     restart: on-failure
