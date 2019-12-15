@@ -11,6 +11,7 @@ import (
 
 // CreateNotifier starts a goroutine that with 1 minute intervals tries to notify subscribers with latest articles.
 // If an article ID is less than or equal to last sent ID, skip it. The maximal amount of articles is currently 10.
+// Returns a chan and can be killed by closing said chan.
 func CreateNotifier(db *database.DB, b *tb.Bot) chan struct{} {
 	quit := make(chan struct{})
 

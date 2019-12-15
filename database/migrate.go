@@ -9,6 +9,8 @@ import (
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 )
 
+// PerformMigrations migrates database to newest version using migration
+// files under svenska-yle-bot/database/migrations
 func (db *DB) PerformMigrations() error {
 	driver, err := postgres.WithInstance(db.DB.DB, &postgres.Config{})
 	m, err := migrate.NewWithDatabaseInstance(

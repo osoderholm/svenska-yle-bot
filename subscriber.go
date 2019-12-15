@@ -6,6 +6,8 @@ import (
 	"time"
 )
 
+// Subscriber represents a Telegram user, group or a channel that will receive articles with specified intervals.
+// ID is auto generated when stored in the database.
 type Subscriber struct {
 	ID             int64      `db:"id"`
 	ChatID         string     `db:"chat_id"`
@@ -14,6 +16,7 @@ type Subscriber struct {
 	LastNotified   *time.Time `db:"last_notified"`
 }
 
+// NewSubscriber creates a simple instance of Subscriber with specified data.
 func NewSubscriber(chatID string, interval int) *Subscriber {
 	return &Subscriber{
 		ChatID:         chatID,
@@ -21,10 +24,13 @@ func NewSubscriber(chatID string, interval int) *Subscriber {
 	}
 }
 
+// SetLastNotified sets the LastNotified time.
 func (s *Subscriber) SetLastNotified(t time.Time) {
 	s.LastNotified = &t
 }
 
+// GetNotifiableSubscribers returns a list of Subscribers from the database
+// that should be notified based on the update interval and current time.
 func GetNotifiableSubscribers(db *database.DB) ([]*Subscriber, error) {
 	subscribers := make([]*Subscriber, 0)
 
@@ -35,6 +41,7 @@ func GetNotifiableSubscribers(db *database.DB) ([]*Subscriber, error) {
 	return subscribers, err
 }
 
+// GetSubscriberByChatID returns a single Subscriber from the database, based on chat ID.
 func GetSubscriberByChatID(db *database.DB, chatID string) (*Subscriber, error) {
 	q := `select * from bot.subscribers where chat_id = :chat_id limit 1;`
 
@@ -51,6 +58,8 @@ func GetSubscriberByChatID(db *database.DB, chatID string) (*Subscriber, error) 
 	return s, getErr
 }
 
+// GetChannelSubscribers returns a list of Subscribers from the database that are Telegram channels.
+// The filter is based on the fact that the channels chat ID begins with @.
 func GetChannelSubscribers(db *database.DB) ([]*Subscriber, error) {
 	subscribers := make([]*Subscriber, 0)
 
@@ -61,6 +70,7 @@ func GetChannelSubscribers(db *database.DB) ([]*Subscriber, error) {
 	return subscribers, err
 }
 
+// Insert creates a new entry in the database if one with the chat ID does not exist.
 func (s *Subscriber) Insert(db *database.DB) error {
 	q := `insert into bot.subscribers (chat_id, update_interval, last_article_id) values (:chat_id, :update_interval, :last_article_id);`
 
@@ -75,6 +85,8 @@ func (s *Subscriber) Insert(db *database.DB) error {
 	return execErr
 }
 
+// Update updates an entry of Subscriber in the database based on Subscriber's ID.
+// The ID is therefore required to be greater than 0.
 func (s *Subscriber) Update(db *database.DB) error {
 	if s.ID == 0 {
 		return errors.New("subscriber does not exist")
@@ -94,6 +106,7 @@ func (s *Subscriber) Update(db *database.DB) error {
 	return execErr
 }
 
+// Delete will delete an entry of Subscriber from the database based on Subscriber's ID.
 func (s *Subscriber) Delete(db *database.DB) error {
 	if s.ID == 0 {
 		return errors.New("subscriber does not exist")

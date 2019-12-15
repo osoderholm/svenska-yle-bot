@@ -72,6 +72,8 @@ func main() {
 	fmt.Println("Bot stopped")
 }
 
+// addChannelSubscribers reads the environmental variable CHANNEL_SUBSCRIBERS
+// and attempts to add the specified, comma separated channels to subscribers.
 func addChannelSubscribers(db *database.DB) error {
 	// comma separated list
 	channels := strings.Split(strings.ReplaceAll(os.Getenv("CHANNEL_SUBSCRIBERS"), "\"", ""), ",")
