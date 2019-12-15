@@ -28,7 +28,7 @@ jobs:
         if: success()
         uses: actions-hub/docker@master
         with:
-          args: push docker.pkg.github.com/${{ github.repository }}/svenska-yle-bot:${IMAGE_TAG} && push docker.pkg.github.com/${{ github.repository }}/svenska-yle-bot:$(echo ${GITHUB_SHA} | cut -c1-8)
+          args: push docker.pkg.github.com/${{ github.repository }}/svenska-yle-bot:${IMAGE_TAG}
 
       - name: Push to docker hub :hash
         if: success()
