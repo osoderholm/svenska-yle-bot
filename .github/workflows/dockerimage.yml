@@ -2,8 +2,6 @@ name: Docker registry
 
 on:
   push:
-    branches:
-      - master
     tags:
       - 'v*'
 
