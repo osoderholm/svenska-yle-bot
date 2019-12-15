@@ -25,7 +25,7 @@ The bot can act on different commands sent by users.
 
 | Command | Description | Private | Group | Channel |
 |:---------|:------------|---------|-------|---------|
-| /latest | Returns 5 latest articles| Yes | Yes | No |
+| /latest  | Returns 5 latest articles| Yes | Yes | No |
 | /subscribe | Subscribes you to news feed. You will receive latest news every hour-ish | Yes | No | No |
 | /unsubscribe | Ends your subscription if you had one | Yes | No | No |
 
