@@ -37,6 +37,8 @@ You can use `/help` to see available commands.
 
 #### Docker
 
+**DISCLAIMER! Don't trust GitHub docker registry `latest` tag!**
+
 There is a `docker-compose.yml` file containing an example of how to run the bot using Docker.
 
 The only thing you need is a Telegram API token. You can get it using Telegram BotFather.
