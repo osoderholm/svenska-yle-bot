@@ -2,6 +2,8 @@ name: Docker registry
 
 on:
   push:
+    branches:
+      - master
     tags:
       - 'v*'
 
@@ -20,10 +22,10 @@ jobs:
 
       - name: Build :tag
         if: success()
-        run: docker build -t docker.pkg.github.com/${{ github.repository }}/app:${IMAGE_TAG} .
+        run: docker build -t docker.pkg.github.com/${{ github.repository }}/svenska-yle-bot:${IMAGE_TAG} .
 
       - name: Push to docker hub :tag
         if: success()
         uses: actions-hub/docker@master
         with:
-          args: push docker.pkg.github.com/${{ github.repository }}:${IMAGE_TAG}
+          args: push docker.pkg.github.com/${{ github.repository }}/svenska-yle-bot:${IMAGE_TAG}
