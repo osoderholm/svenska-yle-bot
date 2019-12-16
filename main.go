@@ -103,7 +103,7 @@ func addChannelSubscribers(db *database.DB) error {
 			continue
 		}
 		// Channel is not subscribed, create
-		_ = NewSubscriber(c, 1).Insert(db)
+		_ = NewSubscriber(c, 2).Insert(db)
 	}
 
 	if len(foundChannels) != len(subscribers) {

@@ -34,7 +34,10 @@ func (s *Subscriber) SetLastNotified(t time.Time) {
 func GetNotifiableSubscribers(db *database.DB) ([]*Subscriber, error) {
 	subscribers := make([]*Subscriber, 0)
 
-	q := `select * from bot.subscribers where last_notified is null or extract(minute from now()-last_notified) > update_interval;`
+	q := `select *
+		from bot.subscribers
+		where last_notified is null
+		   or extract(epoch from now() - last_notified) / 60 > update_interval;`
 
 	err := db.Select(&subscribers, q)
 
