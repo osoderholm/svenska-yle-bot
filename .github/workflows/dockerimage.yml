@@ -18,20 +18,20 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          DOCKER_REGISTRY_URL: docker.pkg.github.com
+          DOCKER_REGISTRY_URL: ghcr.io
 
       - name: Build
         if: success()
-        run: docker build -t docker.pkg.github.com/${{ github.repository }}/svenska-yle-bot:${IMAGE_TAG} -t docker.pkg.github.com/${{ github.repository }}/svenska-yle-bot:$(echo ${GITHUB_SHA} | cut -c1-8) .
+        run: docker build -t ghcr.io/${{ github.repository }}/svenska-yle-bot:${IMAGE_TAG} -t ghcr.io/${{ github.repository }}/svenska-yle-bot:$(echo ${GITHUB_SHA} | cut -c1-8) .
 
       - name: Push to docker hub :tag
         if: success()
         uses: actions-hub/docker@master
         with:
-          args: push docker.pkg.github.com/${{ github.repository }}/svenska-yle-bot:${IMAGE_TAG}
+          args: push ghcr.io/${{ github.repository }}/svenska-yle-bot:${IMAGE_TAG}
 
       - name: Push to docker hub :hash
         if: success()
         uses: actions-hub/docker@master
         with:
-          args: push docker.pkg.github.com/${{ github.repository }}/svenska-yle-bot:$(echo ${GITHUB_SHA} | cut -c1-8)
+          args: push ghcr.io/${{ github.repository }}/svenska-yle-bot:$(echo ${GITHUB_SHA} | cut -c1-8)

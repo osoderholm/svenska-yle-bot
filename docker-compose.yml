@@ -13,7 +13,7 @@ services:
       - ./postgres-data:/var/lib/postgresql/data
 
   bot:
-    #image: docker.pkg.github.com/osoderholm/svenska-yle-bot/svenska-yle-bot:vSomething
+    #image: ghcr.io/osoderholm/svenska-yle-bot/svenska-yle-bot:vSomething
     build:
       context: .
     environment:
