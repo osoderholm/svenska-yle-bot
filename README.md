@@ -52,7 +52,7 @@ In order to run this locally, you must have:
 
 Fetch dependencies:
 
-    go get -u ./...
+    go mod download
     
 Run:
 
